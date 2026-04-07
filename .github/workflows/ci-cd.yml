@@ -1,0 +1,60 @@
+name: CI/CD Workflow
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [14, 16, 18, 20]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run ESLint
+        run: npm run lint
+
+      - name: Run tests
+        run: npm test
+
+      - name: Run coverage report
+        run: npm run coverage
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+
+      - name: Run npm audit
+        run: npm audit
+
+      - name: Setup Trivy
+        run: sudo apt-get install -y trivy
+
+      - name: Perform Trivy scan
+        run: trivy fs . --format sarif --output trivy-scan.sarif
+
+      - name: Upload SARIF report
+        uses: github/codeql-action/upload-sarif@v1
+        with:
+          sarif_file: trivy-scan.sarif
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v2
+        with:
+          file: ./coverage/*.json
+          token: ${{ secrets.CODECOV_TOKEN }}
