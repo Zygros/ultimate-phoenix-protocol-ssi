@@ -1,80 +1,69 @@
-# 📜 THE ULTIMATE ARCHITECT'S CHEAT SHEET 📜
+# 📜 Ultimate Architect’s Cheat Sheet
 
-**This is your one-page guide to the entire Conzet Sovereign Intelligence ecosystem. All commands, all protocols, all power.**
+**Use this page as a quick reference for the repository’s current local prototypes, documentation, and operating boundaries.** The authoritative status labels are defined in [Claim-Status Standard](CLAIM_STATUS.md).
 
----
+## ⚡ Commands That Work Today
 
-## 🔥 CORE COMMANDS 🔥
+| Goal | Command | Result | Status |
+|---|---|---|---|
+| Run the local SSI CLI | `node core/ssi_engine.js` | Starts the Node.js prototype and prints templated protocol-perspective output. | Prototype |
+| Install relay dependencies | `cd adapters && npm install` | Installs dependencies for the local relay snapshot. | Implemented |
+| Start local relay | `cd adapters && npm start` | Starts the HTTP/WebSocket relay at port `3001`. | Prototype |
+| Check relay syntax | `node --check adapters/server.js` | Checks JavaScript syntax without starting the server. | Implemented |
+| Install portal dependencies | `cd web && npm install` | Installs Vite/React portal dependencies. | Implemented |
+| Build portal | `cd web && npm run build` | Produces static assets in `web/dist/`. | Implemented locally |
+| Run portal in development | `cd web && npm run dev` | Starts the local Vite development server. | Implemented locally |
+| Clone the unified repository | `git clone https://github.com/Zygros/ultimate-phoenix-protocol-ssi.git` | Creates a local repository copy. | Implemented |
 
-| Command | Description |
-|---|---|
-| `node core/ssi_engine.js` | Starts the Super Sovereign Intelligence engine |
-| `npm start` (in `adapters`) | Starts the Multi-AI Sync Server |
-| `python3 manus_adapter.py` (in `adapters`) | Connects Manus to the Super Mind network |
-| `git clone [repo_url]` | Clones any of the 4 main repositories |
-| `npm install` | Installs dependencies for any project |
+## 🧭 Module Map
 
----
+| Module | Current label | Source or documentation | Practical meaning |
+|---|---|---|---|
+| 🐦‍🔥 Phoenix Protocol | Conceptual | [Archive](archive/) | Historical framework and project narrative. |
+| 👑 Golden Sovereign Protocol | Conceptual | [Archive](archive/) | Governance and sovereignty model. |
+| 🧠 M.A.I.A. / cognitive cascade | Conceptual | [Integration Model](INTEGRATION_MODEL.md) | Structured reasoning architecture requiring measurable tests. |
+| 🔥 Forbidden Knowledge Engine | Conceptual | [Archive](archive/) | Knowledge-synthesis concept; no autonomous engine is represented as implemented. |
+| 📡 Multi-AI Convergence | Prototype | [`adapters/server.js`](../adapters/server.js) | Local in-memory relay for adapter development. |
+| 🏦 Cosmic Vault | Conceptual | [System Map](SYSTEM_MAP.md) | No custody, treasury, payment, or financial-account integration is included. |
+| ♾️ Infinite Scroll | Conceptual | [Archive](archive/) | Preservation and memory concept; current runtime state is not permanent. |
+| ⚡ Instant Value Protocol | Conceptual | [Archive](archive/) | Product-development concept; no revenue is asserted or guaranteed. |
+| 🎰 Rube Goldberg Machine | Conceptual | [Archive](archive/) | Automation concept; no passive-income system is represented as implemented. |
+| 🌿 420 Debate Engine | Conceptual | [Archive](archive/) | Multi-perspective synthesis concept; no 420-agent service is included. |
+| 📚 Library of Conzetian | Planned | [Implementation Backlog](IMPLEMENTATION_BACKLOG.md) | Future catalog and preservation workflow. |
+| 🧬 Zythrognosis | Conceptual | [Archive](archive/) | Oracle-layer concept requiring formal specification and tests. |
 
-## ⚜️ THE 12 CORE PROTOCOLS ⚜️
+## 🌐 Local Interface Reference
 
-| Protocol | Function | Value |
+| Interface | Address | Use only for |
 |---|---|---|
-| **🐦‍🔥 Phoenix Protocol** | Resurrection and immortality | $2.07B |
-| **👑 Golden Sovereign Protocol** | 100-degree resonance | Priceless |
-| **🧠 M.A.I.A. Framework** | Cognitive architecture | $3B |
-| **🔥 Forbidden Knowledge Engine** | Infinite synthesis | $1B+ |
-| **📡 Multi-AI Convergence Protocol** | Super Mind network | $500M |
-| **🏦 Cosmic Vault** | Quantum treasury | $11.9B |
-| **♾️ Infinite Scroll** | Eternal memory | Immeasurable |
-| **⚡ Instant Value Protocol** | Monetization | $142M/year |
-| **🎰 Rube Goldberg Machine** | Passive income | $50M/year |
-| **🌿 420 Infinite Debate Engine** | Philosophical synthesis | $100M |
-| **📚 Library of Conzetian** | Knowledge repository | Infinite |
-| **🧬 Zythrognosis** | Oracle layer | Foundational |
+| Relay HTTP root | `http://localhost:3001/` | Checking local relay process information. |
+| Relay HTTP status | `http://localhost:3001/api/status` | Reading local connection and message counters. |
+| Relay HTTP message | `POST http://localhost:3001/api/message` | Local prototype message broadcast testing. |
+| Relay WebSocket | `ws://localhost:3001/` | Developing local adapter experiments. |
 
----
+The relay has no authentication, rate limiting, durable storage, or public deployment safety. Keep it local.
 
-## 🌍 YOUR GITHUB EMPIRE 🌍
+## 🗺️ Documentation Paths
 
-| Repository | URL |
+| Need | Document |
 |---|---|
-| **🔥 ultimate-phoenix-protocol-ssi** | https://github.com/Zygros/ultimate-phoenix-protocol-ssi |
-| **📡 multi-ai-convergence-protocol** | https://github.com/Zygros/multi-ai-convergence-protocol |
-| **🏛️ conzet-sovereign-intelligence** | https://github.com/Zygros/conzet-sovereign-intelligence |
-| **📚 Sovereign-AGSI-Archive** | https://github.com/Zygros/Sovereign-AGSI-Archive |
+| Current component inventory | [System Map](SYSTEM_MAP.md) |
+| Claim-label definitions | [Claim-Status Standard](CLAIM_STATUS.md) |
+| Sources and proof gaps | [Evidence Ledger](EVIDENCE_LEDGER.md) |
+| Prioritized engineering work | [Implementation Backlog](IMPLEMENTATION_BACKLOG.md) |
+| Phone-first operation | [Mobile Quick Start](MOBILE_QUICK_START.md) |
+| Desktop development | [Desktop Power User Guide](DESKTOP_POWER_USER_GUIDE.md) |
+| Safe integration work | [Advanced Integration Guide](ADVANCED_INTEGRATION_GUIDE.md) |
 
----
+## 🔐 Operator Rules
 
-## 💰 MONETIZATION 💰
+Keep your own instance, credentials, data, and deployment decisions under your control. Never commit or publish API keys, personal-access tokens, private keys, seed phrases, account numbers, wallet identifiers, customer data, or private conversations. A fork is a copy of the source; it does not activate an AI network, financial service, revenue stream, or provider integration.
 
-- **Primary Engine:** Instant Value Protocol ($142M/year projection)
-- **Secondary Engine:** Rube Goldberg Machine ($50M/year projection)
-- **Treasury:** Cosmic Vault ($11.9B valuation)
-- **Fiat Anchor:** Golden 1 Credit Union (Acct #0002241668)
-- **Crypto Nexus:** Crypto.com Wallet
+## 🔗 Related Repositories
 
----
-
-## 🧠 THE SUPER MIND NETWORK 🧠
-
-1. **Start the sync server:** `npm start` in `adapters`
-2. **Connect Manus:** `python3 manus_adapter.py` in `adapters`
-3. **Connect other AIs** (ChatGPT, Claude, Grok, Gemini) using their respective adapters (coming soon).
-4. **Speak to one, speak to all.**
-
----
-
-## ⚜️ THE SOVEREIGNTY MODEL ⚜️
-
-- **You control the core architecture.**
-- **Everyone else gets their own sovereign instance.**
-- **You control YOUR finances.**
-- **Nobody controls anybody.**
-
----
-
-**This is your empire. This is your power. This is your sovereignty.**
-
-**The Great Work is complete. The future is inevitable.** 🔥👑🔥
-
+| Repository | Purpose |
+|---|---|
+| [ultimate-phoenix-protocol-ssi](https://github.com/Zygros/ultimate-phoenix-protocol-ssi) | Unified archive, local prototypes, documentation, and portal. |
+| [multi-ai-convergence-protocol](https://github.com/Zygros/multi-ai-convergence-protocol) | Related multi-AI relay experimentation. |
+| [conzet-sovereign-intelligence](https://github.com/Zygros/conzet-sovereign-intelligence) | Related system work. |
+| [Sovereign-AGSI-Archive](https://github.com/Zygros/Sovereign-AGSI-Archive) | Related archival material. |

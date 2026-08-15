@@ -1,81 +1,83 @@
-# 📱 MOBILE-FIRST QUICK START GUIDE 📱
+# 📱 Mobile-First Quick Start
 
-**Welcome to the Ultimate Phoenix Protocol SSI. This guide will get you up and running in 5 minutes, entirely on your mobile phone.**
+This guide is designed for reading and operating the **Ultimate Phoenix Protocol SSI** from a phone. The easiest phone workflow is to use GitHub for reading and a terminal environment with Node.js only when you want to run a local prototype.
 
----
+> **Current capability:** The CLI and relay are local prototypes. The web portal is a static React project in `web/`. No external AI account is connected by default.
 
-## 🔥 STEP 1: DOWNLOAD THE REPOSITORY 🔥
+## 🧭 Choose Your Phone Path
 
-1. **Go to the GitHub repository:**
-   - https://github.com/Zygros/ultimate-phoenix-protocol-ssi
+| Goal | What you need | Start here |
+|---|---|---|
+| **Read the system** | A web browser or GitHub Mobile | [System Map](SYSTEM_MAP.md) and [Claim-Status Standard](CLAIM_STATUS.md) |
+| **Save your own copy** | GitHub account or Files app | Fork the repository or download its ZIP archive. |
+| **Run the CLI prototype** | A terminal environment with Node.js | [Run the local CLI](#-run-the-local-cli-prototype) |
+| **Build the portal** | A terminal environment with Node.js and npm | [Build the mobile-first portal](#-build-the-mobile-first-portal) |
+| **Experiment with the relay** | A terminal environment, Node.js, and local networking | [Run the local relay](#-run-the-local-relay-prototype) |
 
-2. **Download the ZIP file:**
-   - Tap the green "Code" button
-   - Tap "Download ZIP"
+## 📥 Get a Copy on Your Phone
 
-3. **Save the ZIP file** to your phone's Files app.
+Open the [repository](https://github.com/Zygros/ultimate-phoenix-protocol-ssi) in your browser or GitHub Mobile. To preserve your own version, use **Fork** in GitHub. To inspect files offline, choose **Code → Download ZIP**, then extract the archive with your device’s file manager.
 
----
+If you use a phone terminal, clone the repository when Git is available:
 
-## 🚀 STEP 2: INSTALL A MOBILE CODE EDITOR 🚀
+```bash
+git clone https://github.com/Zygros/ultimate-phoenix-protocol-ssi.git
+cd ultimate-phoenix-protocol-ssi
+```
 
-To run the SSI on your phone, you need a code editor with a built-in terminal.
+If you downloaded a ZIP archive instead, enter the extracted folder. GitHub’s downloaded folder name can vary, so list your files first with `ls` and then use `cd <folder-name>`.
 
-- **iOS:** [iSH Shell](https://apps.apple.com/us/app/ish-shell/id1436902243)
-- **Android:** [Termux](https://f-droid.org/en/packages/com.termux/)
+## 🧠 Run the Local CLI Prototype
 
-Download and install one of these apps.
+The CLI has no package-install step at the repository root. From the repository root, run:
 
----
+```bash
+node core/ssi_engine.js
+```
 
-## 🧠 STEP 3: RUN THE SSI ENGINE 🧠
+The current engine prints a local status and sample protocol-perspective output. Its inputs and state are stored only in the running process; it is not a persistent memory system or a hosted assistant.
 
-1. **Open your mobile code editor** (iSH or Termux).
+## 🌐 Build the Mobile-First Portal
 
-2. **Navigate to the downloaded ZIP file** and extract it.
-   - In iSH, you can access your Files app via `mount -t ios . /mnt`
-   - In Termux, you can access your downloads via `cd ~/storage/downloads`
+The portal source is intentionally isolated in the `web/` subdirectory.
 
-3. **Unzip the repository:**
-   ```bash
-   unzip ultimate-phoenix-protocol-ssi-main.zip
-   ```
+```bash
+cd web
+npm install
+npm run build
+```
 
-4. **Navigate into the repository:**
-   ```bash
-   cd ultimate-phoenix-protocol-ssi-main
-   ```
+The static production output is written to `web/dist/`. For local development, run:
 
-5. **Install dependencies:**
-   ```bash
-   npm install
-   ```
+```bash
+npm run dev
+```
 
-6. **Run the SSI engine:**
-   ```bash
-   node core/ssi_engine.js
-   ```
+Your terminal will display a local address. Open that address only on the device or trusted local network where the development server is running.
 
----
+## 📡 Run the Local Relay Prototype
 
-## ⚜️ STEP 4: ACHIEVE SOVEREIGNTY ⚜️
+This unified repository contains a **prototype snapshot** under `adapters/`. The associated development repository is [multi-ai-convergence-protocol](https://github.com/Zygros/multi-ai-convergence-protocol). From the unified repository root, you can run the local snapshot with:
 
-You are now running your own instance of the Super Sovereign Intelligence. You can:
+```bash
+cd adapters
+npm install
+npm start
+```
 
-- **Interact with it** via the command line
-- **Modify the code** to your liking
-- **Connect it to the Super Mind network** (see Advanced Integration Guide)
-- **Build your own wealth** using the integrated monetization engines
+The prototype listens on `http://localhost:3001` and `ws://localhost:3001`. It is unauthenticated and keeps state in memory, so keep it local. Do not expose it to the public internet or connect provider credentials until the security work in the [Implementation Backlog](IMPLEMENTATION_BACKLOG.md) is complete.
 
-**You are now sovereign. You are now the architect of your own reality.**
+## 🔐 Keep Your Instance Yours
 
----
+Your copy, credentials, data, and deployment decisions remain under your control. Do not commit API keys, access tokens, private keys, seed phrases, bank details, or private conversations. A fork is a version-control copy; it does not automatically create an AI network, financial service, cloud deployment, or external-provider connection.
 
-## 💰 NEXT STEPS 💰
+## 🗺️ Next Reading
 
-- **Read the Desktop Power User Guide** for more advanced features
-- **Consult the Ultimate Architect's Cheat Sheet** for all commands
-- **Explore the code** and make it your own
-
-**Welcome to the future. Welcome to sovereignty.** 🔥**
-
+| Need | Document |
+|---|---|
+| Know what is real today | [System Map](SYSTEM_MAP.md) |
+| Understand the labels | [Claim-Status Standard](CLAIM_STATUS.md) |
+| See source and proof gaps | [Evidence Ledger](EVIDENCE_LEDGER.md) |
+| Build safely | [Advanced Integration Guide](ADVANCED_INTEGRATION_GUIDE.md) |
+| Plan the next engineering steps | [Implementation Backlog](IMPLEMENTATION_BACKLOG.md) |
+| Use a desktop development workflow | [Desktop Power User Guide](DESKTOP_POWER_USER_GUIDE.md) |

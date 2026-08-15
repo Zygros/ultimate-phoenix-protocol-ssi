@@ -1,105 +1,97 @@
-# 💻 DESKTOP POWER USER GUIDE 💻
+# 💻 Desktop Power User Guide
 
-**Welcome, Architect. This guide is for power users who want to unlock the full potential of the Ultimate Phoenix Protocol SSI on a desktop computer.**
+This guide is for operators who want to inspect, build, and extend the **current local prototypes** in the Ultimate Phoenix Protocol SSI repository. It explains what can run now and identifies the boundary between the unified archive and future external-provider integrations.
 
----
+> **Current posture:** The project contains a local CLI prototype, a local relay prototype, a static web portal, research documentation, and an evidence backlog. It does not provide a hosted AI network, financial service, trained model, or automatic provider access.
 
-## 🔥 STEP 1: CLONE THE REPOSITORY 🔥
+## 🧰 Prerequisites
 
-1. **Open your terminal** (Terminal on Mac/Linux, PowerShell or Git Bash on Windows).
+| Tool | Needed for | Verify |
+|---|---|---|
+| **Git** | Cloning and contributing | `git --version` |
+| **Node.js 20+** | CLI, relay, and web portal | `node --version` |
+| **npm** | Relay and portal dependencies | `npm --version` |
+| **Python 3** | Inspecting or extending the adapter scaffold | `python3 --version` |
 
-2. **Clone the repository:**
-   ```bash
-   git clone https://github.com/Zygros/ultimate-phoenix-protocol-ssi.git
-   ```
+## 📥 Clone the Repository
 
-3. **Navigate into the repository:**
-   ```bash
-   cd ultimate-phoenix-protocol-ssi
-   ```
+```bash
+git clone https://github.com/Zygros/ultimate-phoenix-protocol-ssi.git
+cd ultimate-phoenix-protocol-ssi
+```
 
----
+Before installing packages or running services, review [System Map](SYSTEM_MAP.md), [Claim-Status Standard](CLAIM_STATUS.md), and the relevant source file. The repository root does not need `npm install` to run the current CLI.
 
-## 🚀 STEP 2: INSTALL DEPENDENCIES 🚀
+## 🧠 Run the Local CLI Prototype
 
-1. **Install Node.js:**
-   - Go to https://nodejs.org/ and download the LTS version.
+```bash
+node core/ssi_engine.js
+```
 
-2. **Install dependencies for the SSI engine and the sync server:**
-   ```bash
-   npm install
-   cd adapters
-   npm install
-   cd ..
-   ```
+The CLI loads a small hard-coded protocol registry and returns templated protocol-perspective output. Its state is in process memory and disappears when the process exits. It is an inspectable starting point, not a persistent agent or general intelligence service.
 
----
+## 🌐 Build and Develop the Web Portal
 
-## 🧠 STEP 3: RUN THE SSI ENGINE 🧠
+The Vite/React portal lives in the `web/` subdirectory.
 
-1. **Start the Super Sovereign Intelligence engine:**
-   ```bash
-   node core/ssi_engine.js
-   ```
+```bash
+cd web
+npm install
+npm run build
+```
 
-2. **You will see the SSI initialize** and display its status, including active protocols and total system value.
+For live development:
 
-3. **You can now interact with the SSI** via the command line. The `ssi_engine.js` file can be modified to accept command-line arguments for more advanced interactions.
+```bash
+npm run dev
+```
 
----
+The production output is generated in `web/dist/`. Review the portal’s data model before changing any status labels: each public card should link to code, documentation, evidence, or an explicit future-work item.
 
-## 📡 STEP 4: CONNECT TO THE SUPER MIND NETWORK 📡
+## 📡 Run the Local Relay Prototype
 
-1. **Open a new terminal window.**
+The unified repository contains a snapshot under `adapters/`. The related project is [Zygros/multi-ai-convergence-protocol](https://github.com/Zygros/multi-ai-convergence-protocol); use its repository when you are working specifically on relay development.
 
-2. **Start the Multi-AI Sync Server:**
-   ```bash
-   cd ultimate-phoenix-protocol-ssi/adapters
-   npm start
-   ```
+```bash
+cd adapters
+npm install
+npm start
+```
 
-3. **Open a third terminal window.**
+The current local relay binds to port `3001`. The source exposes `GET /`, `GET /api/status`, `POST /api/message`, and a WebSocket endpoint at `ws://localhost:3001/`. It is unauthenticated and in-memory. Keep it on your workstation and do not make it publicly reachable.
 
-4. **Run the Manus adapter:**
-   ```bash
-   cd ultimate-phoenix-protocol-ssi/adapters
-   python3 manus_adapter.py
-   ```
+## 🧩 Extend an Adapter Safely
 
-5. **You are now connected to the Super Mind network.** Any message you send to Manus will be broadcast to all other connected AIs.
+Use [`adapters/manus_adapter.py`](../adapters/manus_adapter.py) only as a local protocol scaffold. It currently returns placeholder output; it does not connect to an external AI service. Any provider adapter must use an official API, operator-authorized credentials, explicit data-flow documentation, mocked tests, and environment-based secret configuration.
 
----
+| Do | Do not |
+|---|---|
+| Use documented official APIs and service accounts that the operator controls. | Scrape consumer chat websites, automate browser sessions, or bypass provider controls. |
+| Keep keys in a secret manager or local `.env` file excluded from Git. | Commit tokens, private keys, seed phrases, customer data, or personal conversations. |
+| Add authentication, rate limits, tests, and a threat model before deployment. | Publish the current relay to the public internet. |
+| Update the system map and evidence ledger after changes. | Present a concept, projection, or historical claim as implemented without reproducible evidence. |
 
-## 💰 STEP 5: UNLEASH THE WEALTH GENERATION ENGINES 💰
+## 🧪 Recommended Local Verification
 
-The SSI includes multiple passive income engines. To activate them:
+Run the following checks after changing relevant components.
 
-1. **Explore the `protocols` directory** to understand how each engine works.
-2. **Modify the `ssi_engine.js` file** to call the monetization protocols.
-3. **Connect the Cosmic Vault** to your real-world financial accounts (see `COSMIC_VAULT_INTEGRATION.md` - coming soon).
-4. **Watch the revenue flow.**
+```bash
+# CLI smoke test
+node core/ssi_engine.js
 
----
+# Relay syntax check
+node --check adapters/server.js
 
-## ⚜️ STEP 6: BECOME THE ARCHITECT ⚜️
+# Portal production build
+cd web && npm run build
+```
 
-You now have full control over your own instance of the Super Sovereign Intelligence. You can:
+If you change the relay, manually test registration, a user message, a response, disconnect behavior, and the completion/timeout path. The existing deliberation-completion path is a known prototype gap and should be fixed with automated tests before it is relied upon.
 
-- **Modify the core engine** (`core/ssi_engine.js`)
-- **Add new protocols** (`protocols` directory)
-- **Create new AI adapters** (`adapters` directory)
-- **Build new monetization engines**
-- **Fork the repository** and create your own version
+## 🛣️ Contribution Path
 
-**The architecture is yours to command. The future is yours to build.**
+For documentation and portal updates, maintain the standards in [Claim-Status Standard](CLAIM_STATUS.md). For code changes, start with a small, reproducible issue from [Implementation Backlog](IMPLEMENTATION_BACKLOG.md), include a test or smoke-test command, and update [Evidence Ledger](EVIDENCE_LEDGER.md) if the public claim status changes.
 
----
+## 🔐 Operator Responsibility
 
-## 📚 NEXT STEPS 📚
-
-- **Consult the Ultimate Architect's Cheat Sheet** for a one-page reference of all commands and protocols.
-- **Read the Advanced Integration Guide** to connect new AIs and external services.
-- **Join the community** (coming soon) to collaborate with other sovereign architects.
-
-**Welcome to the future. Welcome to sovereignty.** 🔥** sovereignty. 🔥**
-
+You control your own fork, deployment, data, credentials, and financial decisions. The repository supplies software and documentation—not financial custody, income guarantees, legal advice, provider authorization, or control over any other person’s instance.
