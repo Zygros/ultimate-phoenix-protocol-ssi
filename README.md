@@ -27,9 +27,9 @@ The archive includes strong language about intelligence, permanence, financial v
 | Component | Status | Location | What it does now |
 |---|---|---|---|
 | **SSI CLI engine** | Prototype | [`core/ssi_engine.js`](core/ssi_engine.js) | Starts a local process, records in-memory inputs, and returns templated protocol-perspective output. |
-| **Multi-AI relay** | Prototype | [`adapters/server.js`](adapters/server.js) | Provides a local WebSocket/HTTP relay with in-memory state for adapter development. |
+| **Multi-AI relay** | Prototype | [`adapters/server.js`](adapters/server.js) | Provides a localhost-only WebSocket/HTTP relay with in-memory state and local integration tests. |
 | **Manus adapter scaffold** | Prototype | [`adapters/manus_adapter.py`](adapters/manus_adapter.py) | Demonstrates local client registration and placeholder responses; it is not a provider integration. |
-| **Mobile-first portal** | Implemented locally | [`web/`](web/) | Builds a static React site that presents the system map and documentation. |
+| **Mobile-first portal** | Implemented locally | [`web/`](web/) | Builds a static React site that presents the system map and documentation; a guarded `gh-pages` artifact publisher is included. |
 | **Architecture archive** | User-supplied source | [`docs/archive/`](docs/archive/) | Preserves the supplied stress-test report and sovereign archive for provenance. |
 | **Implementation roadmap** | Planned work | [`docs/IMPLEMENTATION_BACKLOG.md`](docs/IMPLEMENTATION_BACKLOG.md) | Defines the evidence, security, and engineering milestones required next. |
 
@@ -56,9 +56,12 @@ The CLI operates locally and uses runtime memory only. Inspect its source before
 cd adapters
 npm install
 npm start
+
+# In a separate terminal, run the local test suite
+npm test
 ```
 
-The current server listens on `http://localhost:3001` and is intended for local experimentation. Do **not** expose it to the public internet until the authentication, rate limiting, persistence, and test items in the backlog are completed.
+The current server listens on `http://127.0.0.1:3001` and is intended for local experimentation. Do **not** expose it to the public internet until the authentication, rate limiting, persistence, dependency review, and remaining test items in the backlog are completed.
 
 ### 4. Build the mobile-first portal
 
@@ -78,6 +81,8 @@ The build output is written to `web/dist/`. For local development, run `npm run 
 | [Claim-Status Standard](docs/CLAIM_STATUS.md) | Definitions for implemented, prototype, planned, conceptual, and evidence-based statements. |
 | [Evidence Ledger](docs/EVIDENCE_LEDGER.md) | Source register, proof requirements, and release verification checklist. |
 | [Implementation Backlog](docs/IMPLEMENTATION_BACKLOG.md) | P0–P3 engineering and evidence milestones. |
+| [Portal Deployment Guide](docs/PORTAL_DEPLOYMENT.md) | GitHub Pages workflow, local build checks, and recovery path. |
+| [v2.1.0 Release Manifest](docs/releases/RELEASE_MANIFEST_v2.1.0.md) | SHA-256 baseline and reproducible verification commands. |
 | [Mobile Quick Start](docs/MOBILE_QUICK_START.md) | Phone-first path for browsing, building, and operating a local copy. |
 | [Desktop Power User Guide](docs/DESKTOP_POWER_USER_GUIDE.md) | Development workflow, local testing, and contribution boundaries. |
 | [Advanced Integration Guide](docs/ADVANCED_INTEGRATION_GUIDE.md) | Safe path for future authorized adapter development. |

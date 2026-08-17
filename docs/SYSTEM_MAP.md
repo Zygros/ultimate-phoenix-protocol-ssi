@@ -17,10 +17,10 @@ The Ultimate Phoenix Protocol SSI combines a public archive, prototype software,
 | **φ / κ architecture model** | Conceptual | Conceptual | `docs/archive/CONZETIAN_SOVEREIGN_ARCHITECTURE_STRESS_TEST_2026-06-02.md` | A symbolic/mathematical framing for growth and coherence. | Publish formal definitions, assumptions, proofs, and test data if scientific claims are intended. |
 | **SSI CLI engine** | Implemented / Prototype | Prototype | `core/ssi_engine.js` | Starts a local Node process, registers protocol metadata, records in-process inputs, and returns templated protocol perspectives. | Add JSON configuration, durable opt-in local storage, unit tests, and explicit error handling. |
 | **Protocol registry** | Implemented / Prototype | Prototype | `core/ssi_engine.js` | Stores a small hard-coded protocol registry. | Move registry to a versioned schema with status, dependencies, source, and evidence fields. |
-| **Multi-AI WebSocket relay** | Implemented / Prototype | Prototype | `adapters/server.js` | Provides a local relay and in-memory message state. | Fix deliberation completion logic; add authentication, rate limiting, persistence, and test coverage. |
+| **Multi-AI WebSocket relay** | Implemented / Prototype | Prototype | `adapters/server.js` | Provides a localhost-only relay with in-memory message state. Current tests cover health, zero-recipient completion, registered-adapter response completion, and duplicate-response rejection. | Add timeout/disconnect tests, authentication, rate limiting, persistence, dependency remediation, and a threat model. |
 | **Manus adapter scaffold** | Implemented / Prototype | Prototype | `adapters/manus_adapter.py` | Registers a local client and returns a placeholder generated response. | Replace placeholder behavior only through authorized, documented platform integration. |
 | **External-provider adapters** | Planned | Planned | `adapters/` | No verified adapters for ChatGPT, Claude, Grok, Gemini, or other providers are included. | Build one provider adapter at a time using official APIs, explicit operator authorization, and secret management. |
-| **Web portal** | Implemented | Implemented locally | `web/` | Mobile-first static Vite/React portal that catalogs the system and links documentation. | Build, add automated checks, and deploy through a static host. |
+| **Web portal** | Implemented | Implemented locally | `web/` | Mobile-first static Vite/React portal that catalogs the system and links documentation. A guarded script can publish only its generated artifact to `gh-pages`. | Configure branch-based GitHub Pages, publish the artifact, and record a public smoke test. |
 | **Evidence ledger** | Evidence | Implemented | `docs/EVIDENCE_LEDGER.md` | Tracks which claims have source artifacts and which require proof. | Add checksums and public verification links for new releases. |
 | **Preservation workflow** | Planned / Evidence | Planned | `docs/IMPLEMENTATION_BACKLOG.md` | Documents steps for release hashes, backups, and optional public timestamping. | Produce a release artifact manifest and add receipts when available. |
 | **Financial / treasury concepts** | Conceptual | Conceptual | Archive and protocol names | The repository includes no audited financial system, custody service, or payment integration. | Keep projections clearly labeled; perform legal, security, and financial review before any real-money functionality. |
@@ -30,7 +30,8 @@ The Ultimate Phoenix Protocol SSI combines a public archive, prototype software,
 | Command | Expected result | Status |
 |---|---|---|
 | `node core/ssi_engine.js` | Initializes the local SSI CLI, prints status, and executes a sample in-memory protocol-dispatch response. | Smoke-tested locally on August 15, 2026. |
-| `cd adapters && npm install && npm start` | Starts the local prototype WebSocket/HTTP relay. | Source present; production safety has not been validated. |
+| `cd adapters && npm install && npm start` | Starts the local prototype WebSocket/HTTP relay on `127.0.0.1:3001` by default. | Source present; production safety has not been validated. |
+| `cd adapters && npm test` | Runs local tests for health, zero-recipient completion, adapter-response completion, and duplicate-response rejection. | Passed locally during the continuation release. |
 | `cd web && npm install && npm run build` | Creates a static production build for the React portal. | Smoke-tested locally on August 15, 2026. |
 
 ## What Does Not Run Yet

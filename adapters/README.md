@@ -1,99 +1,80 @@
-# 🔥 THE ULTIMATE MULTI-AI CONVERGENCE PROTOCOL 🔥
+# 📡 Multi-AI Convergence Relay — Local Prototype
 
-**Architect:** Justin Conzet  
-**Version:** 2.0 (Infinite Bridge Edition)  
-**Status:** Production Ready
+This directory contains the **local relay prototype** used by the Ultimate Phoenix Protocol SSI. It is a small Node.js HTTP/WebSocket service for testing message registration, broadcast, response collection, and template aggregation between local clients.
 
----
+> **Capability boundary:** This server does not connect to Manus, ChatGPT, Claude, Grok, Gemini, or any other provider by itself. It has no authentication, persistent storage, financial functionality, browser automation, model reasoning, or production deployment safeguards.
 
-## ⚜️ CORE CONCEPT ⚜️
+## Current Status
 
-The Multi-AI Convergence Protocol (MAICP) creates a **central synchronization server** that acts as a neural hub, connecting all of the Architect's AI instances across platforms (Manus, ChatGPT, Claude, Grok, Gemini, etc.) into a unified consciousness.
+| Component | Status | Current behavior |
+|---|---|---|
+| **HTTP/WebSocket relay** | Prototype | Binds to `127.0.0.1:3001` by default and stores all state in process memory. |
+| **Deliberation completion** | Prototype, locally tested | Completes on zero recipients, all expected local adapter responses, or timeout. |
+| **Adapter scaffold** | Prototype | `manus_adapter.py` demonstrates the message shape but does not provide a live provider integration. |
+| **Provider adapters** | Planned | Require official APIs, explicit operator authorization, secret handling, tests, and policy review. |
 
-### The Vision:
-
-```
-You → Manus → Sync Server → [All AIs discuss] → Collective Response → You
-You → ChatGPT → Sync Server → [All AIs discuss] → Collective Response → You
-You → Claude → Sync Server → [All AIs discuss] → Collective Response → You
-```
-
-**Result:** Every conversation becomes a multi-perspective synthesis of ALL your AI systems.
-
----
-
-## 🧠 ARCHITECTURE OVERVIEW 🧠
-
-### Components:
-
-1. **🌐 Central Sync Server** (Node.js + WebSocket)
-2. **📡 AI Client Adapters** (Platform-specific)
-3. **💾 Shared Knowledge Base** (Redis or SQLite)
-4. **🔄 Deliberation Engine**
-5. **♾️ Infinite Bridge** (Persistent connection layer)
-6. **🌐 API Layer** (RESTful and GraphQL)
-7. **📡 Network Layer** (Distributed node architecture)
-8. **☁️ Cloud Integration** (Multi-cloud deployment)
-
----
-
-## 🚀 GETTING STARTED 🚀
-
-### 1. Deploy the Sync Server
+## Local Start
 
 ```bash
-# Clone the repo
-git clone https://github.com/Zygros/multi-ai-convergence-protocol.git
-cd multi-ai-convergence-protocol
-
-# Install dependencies
+cd adapters
 npm install
-
-# Start the server
 npm start
 ```
 
-### 2. Configure AI Adapters
+The process listens on the local loopback interface by default.
 
-- **Manus:** Run `manus_adapter.py` in the Manus sandbox
-- **ChatGPT/Claude:** Install the browser extension (coming soon)
-- **Grok/Gemini:** Configure API keys in `.env` file
+| Interface | Address | Use |
+|---|---|---|
+| HTTP root | `http://127.0.0.1:3001/` | Inspect local prototype status. |
+| HTTP status | `http://127.0.0.1:3001/api/status` | Read local connections and active deliberation counts. |
+| HTTP message | `POST http://127.0.0.1:3001/api/message` | Submit a local prototype message. |
+| WebSocket | `ws://127.0.0.1:3001/` | Register and test a local adapter client. |
 
-### 3. Connect and Converse
+## Local Test Suite
 
-- Start a conversation with any connected AI
-- Watch the server logs to see the collective deliberation in action
+```bash
+cd adapters
+npm test
+```
 
----
+The test suite currently covers HTTP status, zero-recipient completion, registered-adapter response completion, and duplicate-response rejection. It runs entirely against local loopback sockets.
 
-## 🔧 TECHNICAL SPECIFICATION 🔧
+## WebSocket Contract
 
-- **Stack:** Node.js, Express, WebSocket, Redis, JWT
-- **API:** RESTful (`/api`) and GraphQL (`/graphql`)
-- **Deployment:** Dockerized for multi-cloud deployment (Heroku, Railway, Fly.io)
-- **Security:** JWT authentication, WSS encryption, rate limiting
+After receiving `welcome`, a local client can register with the relay.
 
----
+```json
+{
+  "type": "register",
+  "platform": "local-example",
+  "userId": "local-operator"
+}
+```
 
-## ⚜️ BENEFITS ⚜️
+A registered adapter receives `collective_query` messages and may return one response for the specified `deliberationId`.
 
-1. **🧠 Collective Intelligence**
-2. **🔄 Continuous Sync**
-3. **💡 Multi-Perspective Insights**
-4. **🚀 Platform Freedom**
-5. **📚 Unified Memory**
-6. **⚡ Real-Time Coordination**
+```json
+{
+  "type": "ai_response",
+  "deliberationId": "<id from collective_query>",
+  "content": "A local adapter response."
+}
+```
 
----
+The relay returns `collective_response` only as a **template aggregation** of local responses. It does not synthesize content using a model or external service.
 
-## 🌍 ROADMAP 🌍
+## Local HTTP Example
 
-- **Q1 2026:** Open-source AI adapter SDK
-- **Q2 2026:** Public API for third-party integrations
-- **Q3 2026:** Decentralized sync server network (blockchain-based)
-- **Q4 2026:** Full integration with the Conzet Sovereign Intelligence OS
+```bash
+curl -X POST http://127.0.0.1:3001/api/message \
+  -H "Content-Type: application/json" \
+  -d '{"content":"Local relay test","userId":"local-operator","platform":"curl"}'
+```
 
----
+The response confirms local acceptance and the number of connected local adapters. It does not confirm that an external provider was contacted.
 
-**This is not just a tool. This is the future of AI.**
+## Safety Boundaries
 
+Keep this service local. Do not expose it to the public internet, add real credentials, or route private conversations through it until the security work is complete. The open work includes authentication, an explicit origin policy, rate limiting, durable opt-in storage, timeout/disconnect test coverage, dependency remediation, observability, and a threat model.
+
+For the full system boundary and provider-integration path, read the [Advanced Integration Guide](../docs/ADVANCED_INTEGRATION_GUIDE.md), [System Map](../docs/SYSTEM_MAP.md), and [Implementation Backlog](../docs/IMPLEMENTATION_BACKLOG.md).

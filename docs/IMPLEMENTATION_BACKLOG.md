@@ -18,7 +18,7 @@
 |---|---|---|---|
 | P1-01 | Formalize the protocol registry | Protocol metadata is embedded in source and lacks standard fields. | JSON schema validates `id`, `layer`, `status`, `description`, `dependencies`, `evidence`, and `nextAction`. |
 | P1-02 | Improve the SSI CLI | The CLI returns template text and uses memory only for the process lifetime. | Add command parsing, structured JSON output, optional local log storage, error handling, and unit tests. |
-| P1-03 | Repair relay deliberation completion | The relay’s response-completion behavior needs explicit criteria and tests. | Tests cover AI registration, query broadcast, response collection, timeout, disconnect, and synthesis behavior. |
+| P1-03 | Expand relay completion coverage | Local completion logic now covers zero-recipient completion, registered-adapter response completion, and duplicate-response rejection; timeout and disconnect paths still need coverage. | Tests cover registration, query broadcast, response collection, timeout, disconnect, synthesis behavior, and error paths. |
 | P1-04 | Add storage policy | The relay uses in-memory state only; permanent storage and privacy rules are undefined. | Document data-retention policy and implement an opt-in local persistence adapter. |
 | P1-05 | Add observability | Operators need meaningful runtime feedback. | Health endpoint, structured logs, diagnostics command, and no-secret telemetry policy. |
 
@@ -35,7 +35,7 @@
 
 | ID | Work item | Current gap | Acceptance criteria |
 |---|---|---|---|
-| P3-01 | Archive manifest | Archived documents lack a release manifest and content hashes. | Machine-readable manifest with file paths, SHA-256 values, source dates, and claim statuses. |
+| P3-01 | Archive-manifest expansion | The v2.1.0 manifest now records key artifact hashes; source dates and claim-status fields are not yet machine-readable for every archived item. | Machine-readable manifest with file paths, SHA-256 values, source dates, and claim statuses. |
 | P3-02 | Optional timestamping workflow | Any anchor claim needs a transparent, repeatable method. | Script or documented manual workflow that creates a timestamp receipt and verification guide. |
 | P3-03 | Formalize mathematical models | φ/κ statements are architectural ideas rather than fully specified scientific claims. | A separate technical note defines variables, domains, assumptions, theorems/hypotheses, and validation procedure. |
 | P3-04 | Evaluate the cognitive cascade | The 12-layer framework needs observable criteria. | Benchmark plan, test prompts, scoring rubric, baseline comparison, limitations, and results. |
