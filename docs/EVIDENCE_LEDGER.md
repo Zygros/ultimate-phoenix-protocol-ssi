@@ -17,6 +17,7 @@ An entry can be preserved as history without being presented as verified fact. T
 | E-005 | Manus adapter scaffold | [`adapters/manus_adapter.py`](../adapters/manus_adapter.py) | A local client registration pattern and placeholder response path. | Implemented prototype. | An authorized integration path, tests, and confirmation of supported functionality. |
 | E-006 | Web portal | [`web/`](../web/) | A mobile-first static React portal for the repository’s system map and sources. | Implemented locally. | CI build record and deployed URL after a chosen static-host configuration. |
 | E-007 | Git history | [`GitHub repository`](https://github.com/Zygros/ultimate-phoenix-protocol-ssi) | Public version history and authorship chronology for committed source material. | Externally inspectable repository record. | Tag a release and record its commit SHA and source archive checksum. |
+| E-008 | v2.1.0 release manifest | [`docs/releases/RELEASE_MANIFEST_v2.1.0.md`](releases/RELEASE_MANIFEST_v2.1.0.md) | SHA-256 inventory and reproducible local verification commands for the evidence-led baseline. | Repository-provided release record. | Tag the manifest commit, attach a source archive hash, and link the public release page. |
 
 ## Claims Awaiting Evidence
 
@@ -51,3 +52,4 @@ No private key, seed phrase, personal-access token, bank account detail, API key
 - [Claim-Status Standard](CLAIM_STATUS.md)
 - [Implementation Backlog](IMPLEMENTATION_BACKLOG.md)
 - [Integration Intake](INTEGRATION_INTAKE.md)
+- [v2.1.0 Release Manifest](releases/RELEASE_MANIFEST_v2.1.0.md)
