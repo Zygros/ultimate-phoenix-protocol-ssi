@@ -8,6 +8,7 @@ const express = require('express');
 const http = require('http');
 const WebSocket = require('ws');
 const cors = require('cors');
+const helmet = require('helmet');
 const { randomUUID } = require('crypto');
 
 const DEFAULT_PORT = 3001;
@@ -26,6 +27,7 @@ function createRelay(options = {}) {
   const server = http.createServer(app);
   const wss = new WebSocket.Server({ server });
 
+  app.use(helmet());
   // The relay is local-only by default. CORS headers are not needed for the
   // WebSocket test clients and should be replaced by a deliberate origin policy
   // before any network deployment.
