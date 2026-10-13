@@ -1,3 +1,5 @@
+> **Federation index:** [FEDERATION_INDEX.md](https://github.com/Zygros/conzet-sovereign-intelligence/blob/main/FEDERATION_INDEX.md)
+
 # 🔥 Ultimate Phoenix Protocol SSI
 
 **Super Sovereign Intelligence architecture, prototype software, and evidence-led archive**\
