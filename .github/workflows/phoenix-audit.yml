@@ -35,6 +35,11 @@ jobs:
       - name: Rust audit
         run: if [ -f Cargo.toml ]; then if [ -f Cargo.lock ]; then cargo check --locked; else cargo check; fi; cargo test; else echo 'No Rust crate detected.'; fi
       - name: Java audit
-        run: if [ -x ./mvnw ]; then ./mvnw -q test; elif [ -f pom.xml ]; then mvn -q test; elif [ -x ./gradlew ]; then ./gradlew test; else echo 'No Java build detected.'; fi
+        run: if [ -x ./mvnw ]; then ./mvnw -q test; elif [ -f pom.xml ]; then mvn -q test; elif [ -x ./gradlew ]; then ./gradlew test; elif [ -f build.gradle ] || [ -f build.gradle.kts ]; then gradle test; else echo 'No Java build detected.'; fi
       - name: Credential pattern scan
-        run: if grep -RInE --exclude-dir=.git --exclude='*.lock' 'AKIA[0-9A-Z]{16}|-----BEGIN (RSA|EC|OPENSSH|PRIVATE) KEY-----|ghp_[A-Za-z0-9_]{20,}' . >/tmp/secret-scan.txt 2>/dev/null; then cat /tmp/secret-scan.txt; exit 1; fi
+        run: |
+          if grep -RIlE --exclude-dir=.git --exclude-dir=node_modules --exclude='*.lock' 'AKIA[0-9A-Z]{16}|-----BEGIN (RSA|EC|OPENSSH|PRIVATE) KEY-----|ghp_[A-Za-z0-9_]{20,}' . >/tmp/secret-scan-files.txt 2>/dev/null; then
+            echo 'Credential-like patterns detected in these files; matching contents are suppressed:'
+            cat /tmp/secret-scan-files.txt
+            exit 1
+          fi
