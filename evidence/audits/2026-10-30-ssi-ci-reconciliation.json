@@ -1,0 +1,76 @@
+{
+  "schema_version": "1.0",
+  "report_date": "2026-10-30",
+  "repository": "Zygros/ultimate-phoenix-protocol-ssi",
+  "pull_request": 2,
+  "branch": "conzetian/phoenix-audit-source-probe-2026-10-23",
+  "verified_head": "a73626e61a699e8b5b363514bb88bbd989fb6dbe",
+  "changes": [
+    "Retain find -print -quit Python source probe",
+    "Run adapter tests with Node's native test runner and adapter lockfile",
+    "Add response body to zero-recipient HTTP regression failure diagnostics",
+    "Replace root npm ci assumption with lockfile-aware root install and adapter npm ci",
+    "Replace masked JavaScript CI steps with explicit adapter test execution",
+    "Use Node 20 and 22 for the adapter CI matrix",
+    "Skip root lint only when no ESLint config exists and report the skip",
+    "Change credential scan to emit matching file paths only and exclude node_modules",
+    "Restore non-wrapper Gradle detection in Phoenix Audit"
+  ],
+  "source_blobs": {
+    ".github/workflows/phoenix-audit.yml": "2c7b910afa34baf5e28636d35f53d70a82cbfbb7",
+    ".github/workflows/javascript-ci.yml": "9fcbd5a2094f2b8a929ab6730a10915ea5acf191",
+    "adapters/test/server.test.js": "009be0a189d3d39957a368ff151574ea1f531ae9"
+  },
+  "verification": {
+    "phoenix_audit": {
+      "pr_run": {
+        "id": 41114275668,
+        "conclusion": "success"
+      },
+      "push_run": {
+        "id": 41114264121,
+        "conclusion": "success"
+      },
+      "adapter_tests": {
+        "passed": 4,
+        "failed": 0
+      },
+      "credential_scan": "success; path-only output; no matching paths reported"
+    },
+    "javascript_ci": {
+      "pr_run": {
+        "id": 41114275575,
+        "conclusion": "success"
+      },
+      "node_20": {
+        "passed": 4,
+        "failed": 0
+      },
+      "node_22": {
+        "passed": 4,
+        "failed": 0
+      },
+      "root_lint": "skipped; no root ESLint configuration exists",
+      "root_build": "conditional; no root build script"
+    },
+    "legacy_ci_cd": {
+      "pr_run": {
+        "id": 41114275622,
+        "conclusion": "failure"
+      },
+      "observed_failure": "ESLint could not find a configuration file",
+      "later_steps": "skipped after the ESLint failure",
+      "node_14_job": "failed before substantive checks"
+    },
+    "production_deployment": false,
+    "external_anchoring": false
+  },
+  "evidence_classification": {
+    "python_probe": "IMPLEMENTED",
+    "adapter_test_runner": "IMPLEMENTED",
+    "adapter_integration_tests": "TESTED",
+    "credential_scan": "TESTED",
+    "legacy_ci_cd": "BLOCKED"
+  },
+  "pr_state_at_recording": "open_unmerged"
+}
