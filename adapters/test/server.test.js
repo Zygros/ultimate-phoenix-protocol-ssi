@@ -95,8 +95,13 @@ test('completes a zero-recipient HTTP message without leaving an active delibera
       body: JSON.stringify({ content: 'local zero-recipient test', userId: 'operator' })
     });
 
-    assert.equal(response.status, 202);
-    const submitted = await response.json();
+    const responseText = await response.text();
+    assert.equal(
+      response.status,
+      202,
+      `Expected HTTP 202, received ${response.status}: ${responseText}`
+    );
+    const submitted = JSON.parse(responseText);
     assert.equal(submitted.recipients, 0);
     assert.equal(submitted.status, 'complete');
 

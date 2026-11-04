@@ -6,33 +6,47 @@ on:
   pull_request:
     branches: [ main, master ]
 
+permissions:
+  contents: read
+
 jobs:
   test:
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
-        node-version: [16.x, 18.x, 20.x]
+        node-version: [20.x, 22.x]
 
     steps:
-    - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version }}
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: npm
+          cache-dependency-path: |
+            package.json
+            adapters/package-lock.json
 
-    - name: Install dependencies
-      run: |
-        if [ -f package.json ]; then npm ci; fi
+      - name: Install root dependencies
+        run: |
+          if [ -f package-lock.json ]; then npm ci; elif [ -f package.json ]; then npm install; fi
 
-    - name: Lint with ESLint
-      run: |
-        npm run lint || true
+      - name: Install adapter dependencies
+        run: |
+          if [ -f adapters/package-lock.json ]; then npm ci --prefix adapters; elif [ -f adapters/package.json ]; then npm install --prefix adapters; fi
 
-    - name: Run tests
-      run: |
-        npm test || true
+      - name: Run adapter tests
+        run: npm test --prefix adapters
 
-    - name: Build (if applicable)
-      run: |
-        npm run build || true
+      - name: Lint when a root ESLint configuration exists
+        run: |
+          if [ -f eslint.config.js ] || [ -f eslint.config.mjs ] || [ -f .eslintrc ] || [ -f .eslintrc.js ] || [ -f .eslintrc.json ]; then
+            npm run lint
+          else
+            echo 'No root ESLint configuration detected; lint skipped.'
+          fi
+
+      - name: Build when a root build script exists
+        run: npm run build --if-present
