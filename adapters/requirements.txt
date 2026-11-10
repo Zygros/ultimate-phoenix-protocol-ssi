@@ -1,0 +1,2 @@
+# autofix 2026-11-10: Python dependency imported by adapters/manus_adapter.py
+websockets
